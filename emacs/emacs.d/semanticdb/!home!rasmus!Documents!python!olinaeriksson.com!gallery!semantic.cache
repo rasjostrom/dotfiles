@@ -1,0 +1,65 @@
+;; Object gallery/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "gallery/"
+  :tables
+  (list
+    (semanticdb-table "views.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("django.views.generic" include nil nil [1 54])
+            ("django.core.urlresolvers" include nil nil [55 104])
+            ("Photo" include nil nil [119 131])
+            ("PhotoListView" type
+               (:superclasses ("ListView")
+                :members 
+                  ( ("model" variable nil (reparse-symbol indented_block_body) [195 208])
+                    ("paginate_by" variable nil (reparse-symbol indented_block_body) [213 229])
+                    ("template_name" variable nil (reparse-symbol indented_block_body) [234 279]))                  
+                :type "class")
+                nil [160 280])
+            ("PhotoCreateView" type
+               (:superclasses ("CreateView")
+                :members 
+                  ( ("model" variable nil (reparse-symbol indented_block_body) [321 334])
+                    ("template_name" variable nil (reparse-symbol indented_block_body) [339 386])
+                    ("fields" variable nil (reparse-symbol indented_block_body) [391 428])
+                    ("success_url" variable nil (reparse-symbol indented_block_body) [433 473]))                  
+                :type "class")
+                nil [282 474]))          
+      :file "views.py"
+      :pointmax 474
+      :fsize 473
+      :lastmodtime '(21933 22511 252017 172000)
+      :unmatched-syntax '((FROM 106 . 110) (PERIOD 111 . 112) (FROM 106 . 110) (PERIOD 111 . 112) ($EOI 474 . 474) (FROM 106 . 110) (PERIOD 111 . 112)))
+    (semanticdb-table "models.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("django.db" include nil nil [1 29])
+            ("blog.models" include nil nil [31 71])
+            ("wand.image" include nil nil [73 101])
+            ("uploadPhotoTo" function (:arguments 
+              ( ("instance" variable nil (reparse-symbol function_parameters) [149 157])
+                ("filename" variable nil (reparse-symbol function_parameters) [159 167]))              ) nil [131 217])
+            ("Photo" type
+               (:superclasses ("TimeStampedModel")
+                :members 
+                  ( ("img" variable nil (reparse-symbol indented_block_body) [254 302])
+                    ("text" variable nil (reparse-symbol indented_block_body) [307 354])
+                    ("published" variable nil (reparse-symbol indented_block_body) [359 405])
+                    ("save" function
+                       (:parent "dummy"
+                        :arguments 
+                          ( ("self" variable nil (reparse-symbol function_parameters) [424 428])
+                            ("args" variable nil (reparse-symbol function_parameters) [430 435])
+                            ("kwargs" variable nil (reparse-symbol function_parameters) [437 445]))                          )
+                        (reparse-symbol indented_block_body) [415 772]))                  
+                :type "class")
+                nil [219 772]))          
+      :file "models.py"
+      :pointmax 772
+      :fsize 771
+      :lastmodtime '(21933 24515 37407 183000)
+      :unmatched-syntax nil))
+  :file "!home!rasmus!Documents!python!olinaeriksson.com!gallery!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

@@ -1,0 +1,42 @@
+;; Object application/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "application/"
+  :tables
+  (list
+    (semanticdb-table "Main.java"
+      :major-mode 'java-mode
+      :tags 
+        '( ("application" package nil nil [1 21])
+            ("javafx.application.Application" include nil nil [24 62])
+            ("javafx.stage.Stage" include nil nil [63 89])
+            ("javafx.scene.Scene" include nil nil [90 116])
+            ("javafx.scene.layout.BorderPane" include nil nil [117 155])
+            ("Main" type
+               (:typemodifiers ("public")
+                :superclasses "Application"
+                :members 
+                  ( ("start" function
+                       (:typemodifiers ("public")
+                        :arguments 
+                          ( ("primaryStage" variable (:type "Stage") (reparse-symbol formal_parameters) [228 246]))                          
+                        :type "void")
+                        (reparse-symbol class_member_declaration) [210 542])
+                    ("main" function
+                       (:typemodifiers ("public" "static")
+                        :arguments 
+                          ( ("args" variable
+                               (:dereference 1
+                                :type "String")
+                                (reparse-symbol formal_parameters) [570 583]))                          
+                        :type "void")
+                        (reparse-symbol class_member_declaration) [546 605]))                  
+                :type "class")
+                nil [158 607]))          
+      :file "Main.java"
+      :pointmax 608
+      :fsize 607
+      :lastmodtime '(21867 13853 719403 125000)
+      :unmatched-syntax nil))
+  :file "!home!rasmus!workspace2!eoui!src!application!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

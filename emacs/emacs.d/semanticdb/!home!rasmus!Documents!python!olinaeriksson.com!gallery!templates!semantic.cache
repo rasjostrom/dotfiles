@@ -1,0 +1,18 @@
+;; Object templates/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "templates/"
+  :tables
+  (list
+
+
+    (semanticdb-table "photo_createview.html~"
+      :major-mode 'html-mode
+      :tags nil
+      :file "photo_createview.html~"
+      :pointmax 87
+      :fsize 86
+      :lastmodtime '(21933 19777 980028 276000)
+      :unmatched-syntax nil))
+  :file "!home!rasmus!Documents!python!olinaeriksson.com!gallery!templates!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

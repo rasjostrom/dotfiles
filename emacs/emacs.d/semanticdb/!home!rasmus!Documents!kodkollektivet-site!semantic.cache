@@ -1,0 +1,23 @@
+;; Object kodkollektivet-site/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "kodkollektivet-site/"
+  :tables
+  (list
+    (semanticdb-table "server.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("flask" include nil nil [1 41])
+            ("livereload" include nil nil [42 71])
+            ("" code nil nil [130 135])
+            ("index" function nil nil [136 191])
+            ("make_livereload_server" function (:arguments 
+              ( ("wsgi_app" variable nil (reparse-symbol function_parameters) [239 247]))              ) nil [212 399])
+            ("if" code nil nil [400 634]))          
+      :file "server.py"
+      :pointmax 634
+      :fsize 633
+      :lastmodtime '(21991 25740 226004 248000)
+      :unmatched-syntax nil))
+  :file "!home!rasmus!Documents!kodkollektivet-site!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

@@ -1,0 +1,32 @@
+;; Object server/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "server/"
+  :tables
+  (list
+    (semanticdb-table "lolserv.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("json" include nil nil [20 41])
+            ("requests" include nil nil [20 41])
+            ("flask" include nil nil [42 77])
+            ("flask.ext.api" include nil nil [78 112])
+            ("flask.ext.api.parsers" include nil nil [113 157])
+            ("flask.ext.api.decorators" include nil nil [158 206])
+            ("app" variable nil nil [208 232])
+            ("" code nil nil [244 249])
+            ("index" function nil nil [250 289])
+            ("" code nil nil [300 308])
+            ("" code nil nil [321 333])
+            ("uet_username" function nil nil [334 436])
+            ("" code nil nil [447 470])
+            ("get_id" function (:arguments 
+              ( ("summonerName" variable nil (reparse-symbol function_parameters) [482 494]))              ) nil [471 890])
+            ("if" code nil nil [891 958]))          
+      :file "lolserv.py"
+      :pointmax 958
+      :fsize 957
+      :lastmodtime '(21943 47424 785072 716000)
+      :unmatched-syntax nil))
+  :file "!home!rasmus!Documents!LoLAlert!server!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

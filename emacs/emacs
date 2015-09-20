@@ -1,0 +1,131 @@
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (package-initialize)
+  (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  )
+
+(require 'package)
+(require 'json)
+
+(package-initialize)
+
+;; ############ PYTHON SETTINGS ############### ;;
+
+;; jedi
+(autoload 'jedi:setup "jedi" nil t)
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:setup-keys t)
+(setq jedi:complete-on-dot t)
+
+;; elpy
+(elpy-enable)
+
+;; ################# GO SETTINGS ################## ;;
+
+;; go major mode
+(require 'go-mode-autoloads)
+
+
+;; ################ C/C++ SETTINGS ################ ;;
+
+;; auto complete
+(defun my:ac-c-header-init ()
+  (require 'auto-complete-c-headers)
+  (add-to-list 'ac-sources 'ac-source-c-headers))
+
+;; hooks for c headers ac
+(add-hook 'c++-mode-hook 'my:ac-c-header-init)
+(add-hook 'c-mode-hook 'my:ac-c-header-init)
+
+;; add semantic to ac bockend
+(defun my:add-semantic-to-autocomplete()
+  (add-to-list 'ac-sources 'ac-source-semantic))
+(add-hook 'c-mode-common-hook 'my:add-semantic-to-autocomplete)
+
+;; ############ GENERAL EMACS SETTINGS ############ ;;
+
+
+;; iedit refactoring
+(define-key global-map (kbd "C-;") 'iedit-mode)
+
+;; flycheck error checking
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+;; auto-complete
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+
+(setq ac-disable-faces nil) ;; allows outo-complete between quotation marks
+(ac-config-default)
+
+;; yasnippets
+(require 'yasnippet)
+(yas-global-mode 1)
+
+;; semantic intellisens
+(semantic-mode 1)
+(global-semantic-idle-scheduler-mode 1)
+
+;; cask
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
+
+;; load theme path
+(add-to-list 'custom-theme-load-path
+             (file-name-as-directory "~/.emacs.d/replace-colorthemes"))
+
+;; load your favorite theme
+(load-theme 'ld-dark t t)
+(enable-theme 'ld-dark)
+
+;; Key bindings
+
+(define-key key-translation-map [?\C-x] [?\C-u])
+(define-key key-translation-map [?\C-u] [?\C-x])
+
+;; remove toolbar
+(tool-bar-mode -1)
+
+;; remove scroll
+(toggle-scroll-bar -1)
+
+;; remove menubar
+;; (menu-bar-mode -1)
+
+;; remove startup screen
+(setq inhibit-startup-message t)
+
+;; set font size
+(set-face-attribute 'default nil :height 105)
+
+;; helm setup
+(require 'helm-config)
+(helm-mode 1)
+(global-set-key (kbd "M-x") 'helm-M-x)
+
+;; ace-jump
+(require 'ace-jump-mode)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+
+;; neotree
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
+
+;; drag-stuff
+(require 'drag-stuff)
+(drag-stuff-mode t)
+(drag-stuff-global-mode t)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(blink-cursor-mode nil)
+ '(tool-bar-mode nil)
+ '(transient-mark-mode (quote (only . t))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

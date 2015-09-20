@@ -1,0 +1,24 @@
+;; Object js/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "js/"
+  :tables
+  (list
+    (semanticdb-table "services.js"
+      :major-mode 'js-mode
+      :tags nil
+      :file "services.js"
+      :pointmax 1437
+      :fsize 1436
+      :lastmodtime '(21935 64741 901905 767000)
+      :unmatched-syntax '((PAREN_BLOCK 573 . 1434) (DOT 565 . 566) (PAREN_BLOCK 330 . 497) (DOT 322 . 323) (PAREN_BLOCK 111 . 282) (DOT 103 . 104) (PAREN_BLOCK 15 . 51)))
+    (semanticdb-table "app.js"
+      :major-mode 'js-mode
+      :tags nil
+      :file "app.js"
+      :pointmax 2970
+      :fsize 2969
+      :lastmodtime '(21935 64741 901905 767000)
+      :unmatched-syntax '((PAREN_BLOCK 980 . 2968) (DOT 973 . 974) (PAREN_BLOCK 449 . 971) (DOT 445 . 446) (PAREN_BLOCK 378 . 443))))
+  :file "!home!rasmus!Documents!unitime-cordova!unitime-john!www!js!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

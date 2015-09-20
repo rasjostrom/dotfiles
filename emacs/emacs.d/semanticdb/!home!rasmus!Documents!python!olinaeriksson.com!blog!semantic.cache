@@ -1,0 +1,95 @@
+;; Object blog/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "blog/"
+  :tables
+  (list
+    (semanticdb-table "views.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("django.shortcuts" include nil nil [1 36])
+            ("django.views.generic" include nil nil [38 127])
+            ("django.core.urlresolvers" include nil nil [128 177])
+            ("Post" include nil nil [352 363])
+            ("PostCreateView" type
+               (:superclasses ("CreateView")
+                :members 
+                  ( ("model" variable nil (reparse-symbol indented_block_body) [403 415])
+                    ("template_name" variable nil (reparse-symbol indented_block_body) [420 463])
+                    ("fields" variable nil (reparse-symbol indented_block_body) [468 494])
+                    ("success_url" variable nil (reparse-symbol indented_block_body) [499 533]))                  
+                :type "class")
+                nil [365 534])
+            ("PostListView" type
+               (:superclasses ("ListView")
+                :members 
+                  ( ("model" variable nil (reparse-symbol indented_block_body) [569 581])
+                    ("template_name" variable nil (reparse-symbol indented_block_body) [586 627]))                  
+                :type "class")
+                nil [535 628])
+            ("PostDetailView" type
+               (:superclasses ("DetailView")
+                :members 
+                  ( ("model" variable nil (reparse-symbol indented_block_body) [667 679])
+                    ("template_name" variable nil (reparse-symbol indented_block_body) [684 727]))                  
+                :type "class")
+                nil [629 728])
+            ("PostUpdateView" type
+               (:superclasses ("UpdateView")
+                :members 
+                  ( ("model" variable nil (reparse-symbol indented_block_body) [772 784])
+                    ("template_name" variable nil (reparse-symbol indented_block_body) [789 832])
+                    ("fields" variable nil (reparse-symbol indented_block_body) [837 863])
+                    ("success_url" variable nil (reparse-symbol indented_block_body) [868 902]))                  
+                :type "class")
+                nil [734 903])
+            ("PostDeleteView" type
+               (:superclasses ("DeleteView")
+                :members 
+                  ( ("model" variable nil (reparse-symbol indented_block_body) [942 954])
+                    ("template_name" variable nil (reparse-symbol indented_block_body) [959 1002])
+                    ("success_url" variable nil (reparse-symbol indented_block_body) [1007 1041]))                  
+                :type "class")
+                nil [904 1042])
+            ("index" function (:arguments 
+              ( ("request" variable nil (reparse-symbol function_parameters) [1053 1060]))              ) nil [1043 1225]))          
+      :file "views.py"
+      :pointmax 2435
+      :fsize 2434
+      :lastmodtime '(21933 11774 464302 911000)
+      :unmatched-syntax '((FROM 339 . 343) (PERIOD 344 . 345)))
+    (semanticdb-table "models.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("datetime" include nil nil [1 16])
+            ("django.db" include nil nil [18 46])
+            ("django" include nil nil [47 71])
+            ("tinymce.models" include nil nil [73 109])
+            ("wand.image" include nil nil [111 139])
+            ("TimeStampedModel" type
+               (:superclasses ("models.Model")
+                :members 
+                  ( ("''' For adding timestapes to models '''" code nil (reparse-symbol indented_block_body) [212 251])
+                    ("created" variable nil (reparse-symbol indented_block_body) [256 307])
+                    ("modified" variable nil (reparse-symbol indented_block_body) [312 360])
+                    ("Meta" type
+                       (:members 
+                          ( ("abstract" variable nil (reparse-symbol indented_block_body) [386 401]))                          
+                        :type "class")
+                        (reparse-symbol indented_block_body) [366 481]))                  
+                :type "class")
+                nil [169 481])
+            ("Post" type
+               (:superclasses ("TimeStampedModel")
+                :members 
+                  ( ("titel" variable nil (reparse-symbol indented_block_body) [520 559])
+                    ("text" variable nil (reparse-symbol indented_block_body) [564 582]))                  
+                :type "class")
+                nil [486 583]))          
+      :file "models.py"
+      :pointmax 1966
+      :fsize 1965
+      :lastmodtime '(21933 26845 943505 393000)
+      :unmatched-syntax nil))
+  :file "!home!rasmus!Documents!python!olinaeriksson.com!blog!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

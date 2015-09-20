@@ -1,0 +1,23 @@
+;; Object LoLAlert/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "LoLAlert/"
+  :tables
+  (list
+    (semanticdb-table "lolalert.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("requests" include nil nil [1 16])
+            ("time" include nil nil [17 28])
+            ("summonerName" variable nil nil [50 71])
+            ("summonerId" variable nil nil [72 86])
+            ("print" code nil nil [316 356])
+            ("print" code nil nil [357 393])
+            ("while" code nil nil [395 718]))          
+      :file "lolalert.py"
+      :pointmax 725
+      :fsize 724
+      :lastmodtime '(21819 50336 74223 371000)
+      :unmatched-syntax nil))
+  :file "!home!rasmus!Documents!python!Scribbles!python!LoLAlert!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

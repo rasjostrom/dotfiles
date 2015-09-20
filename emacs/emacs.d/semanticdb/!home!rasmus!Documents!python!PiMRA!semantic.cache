@@ -1,0 +1,65 @@
+;; Object PiMRA/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "PiMRA/"
+  :tables
+  (list
+    (semanticdb-table "pimra.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("subprocess" include nil nil [1 18])
+            ("subprocess" include nil nil [19 58])
+            ("flask" include nil nil [59 99])
+            ("os" include nil nil [131 158])
+            ("flask.ext.socketio" include nil nil [159 204])
+            ("radioscripts" include nil nil [206 225])
+            ("app" variable nil nil [227 272])
+            ("socketio" variable nil nil [273 297])
+            ("TERMINAL" variable nil nil [299 314])
+            ("FAKE_AP" variable nil nil [316 331])
+            ("" code nil nil [355 360])
+            ("index" function nil nil [361 1426])
+            ("" code nil nil [1440 1471])
+            ("test_message" function (:arguments 
+              ( ("msg" variable nil (reparse-symbol function_parameters) [1489 1492]))              ) nil [1472 1618])
+            ("" code nil nil [1632 1662])
+            ("test_connect" function nil nil [1663 1707])
+            ("" code nil nil [1769 1802])
+            ("test_disconnect" function nil nil [1803 1859])
+            ("" code nil nil [1871 1880])
+            ("wifi" function nil nil [1881 1998])
+            ("" code nil nil [2010 2019])
+            ("rfid" function nil nil [2020 2090])
+            ("" code nil nil [2102 2113])
+            ("custom_scripts" function nil nil [2114 2168])
+            ("" code nil nil [2180 2193])
+            ("settings" function nil nil [2194 2232])
+            ("" code nil nil [2244 2265])
+            ("terminal_service" function nil nil [2266 2702])
+            ("make_livereload_server" function (:arguments 
+              ( ("wsgi_app" variable nil (reparse-symbol function_parameters) [2752 2760]))              ) nil [2725 2894])
+            ("if" code nil nil [2915 3117]))          
+      :file "pimra.py"
+      :pointmax 3137
+      :fsize 3136
+      :lastmodtime '(21970 63901 299919 502000)
+      :unmatched-syntax nil)
+    (semanticdb-table "radioscripts.py"
+      :major-mode 'python-mode
+      :tags 
+        '( ("subprocess" include nil nil [1 18])
+            ("''' 
+Call a predefined function
+'''" code nil nil [21 56])
+            ("run" function (:arguments 
+              ( ("command" variable nil (reparse-symbol function_parameters) [66 73]))              ) nil [58 376])
+            ("nfc_info" function nil nil [381 533])
+            ("nfc_poll" function nil nil [535 680])
+            ("nfc_dump" function nil nil [682 845]))          
+      :file "radioscripts.py"
+      :pointmax 845
+      :fsize 850
+      :lastmodtime '(21938 15644 317164 905000)
+      :unmatched-syntax '((INDENT_BLOCK 286 . 382) (INDENT_BLOCK 259 . 285) (INDENT_BLOCK 286 . 364) (INDENT_BLOCK 259 . 285) (INDENT_BLOCK 286 . 371) (INDENT_BLOCK 259 . 285) (INDENT_BLOCK 286 . 369) (INDENT_BLOCK 259 . 285) (INDENT_BLOCK 286 . 364) (INDENT_BLOCK 259 . 285) (INDENT_BLOCK 286 . 312) (INDENT_BLOCK 259 . 285) (INDENT_BLOCK 286 . 296) (INDENT_BLOCK 259 . 285) (INDENT_BLOCK 286 . 296) (INDENT_BLOCK 259 . 285) (INDENT_BLOCK 259 . 285))))
+  :file "!home!rasmus!Documents!python!PiMRA!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

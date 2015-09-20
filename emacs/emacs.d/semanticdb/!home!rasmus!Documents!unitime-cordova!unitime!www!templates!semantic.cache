@@ -1,0 +1,38 @@
+;; Object templates/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "templates/"
+  :tables
+  (list
+    (semanticdb-table "tab-dash.html"
+      :major-mode 'html-mode
+      :tags 
+        '( ("{{course.name_en}}" section nil nil [967 1455])
+            ("{{course[0].name_en}}" section nil nil [1455 1704]))          
+      :file "tab-dash.html"
+      :pointmax 1704
+      :fsize 1703
+      :lastmodtime '(21936 999 898207 307000)
+      :unmatched-syntax nil)
+    (semanticdb-table "tab-chats.html"
+      :major-mode 'html-mode
+      :tags 
+        '( ("{{course.name_en}}" section nil nil [532 863]))          
+      :file "tab-chats.html"
+      :pointmax 863
+      :fsize 928
+      :lastmodtime '(21935 42445 908651 478000)
+      :unmatched-syntax nil)
+    (semanticdb-table "dash-detail.html"
+      :major-mode 'html-mode
+      :tags 
+        '( ("Swedish Syllabus" anchor nil nil [1207 1210])
+            ("English Syllabus" anchor nil nil [1281 1284])
+            ("LNU Course page" anchor nil nil [1588 1591]))          
+      :file "dash-detail.html"
+      :pointmax 1864
+      :fsize 1863
+      :lastmodtime '(21935 42445 908651 478000)
+      :unmatched-syntax nil))
+  :file "!home!rasmus!Documents!unitime-cordova!unitime!www!templates!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

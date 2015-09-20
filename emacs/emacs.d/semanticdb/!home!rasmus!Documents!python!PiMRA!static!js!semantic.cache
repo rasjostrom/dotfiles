@@ -1,0 +1,36 @@
+;; Object js/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "js/"
+  :tables
+  (list
+    (semanticdb-table "app.js"
+      :major-mode 'js-mode
+      :tags nil
+      :file "app.js"
+      :pointmax 896
+      :fsize 895
+      :lastmodtime '(21936 7788 978084 562000)
+      :unmatched-syntax '((PAREN_BLOCK 62 . 894) (DOT 55 . 56) (PAREN_BLOCK 15 . 53)))
+    (semanticdb-table "controllers.js"
+      :major-mode 'js-mode
+      :tags nil
+      :file "controllers.js"
+      :pointmax 138
+      :fsize 137
+      :lastmodtime '(21938 44898 490743 237000)
+      :unmatched-syntax '((PAREN_BLOCK 60 . 136) (DOT 49 . 50) (PAREN_BLOCK 15 . 46)))
+    (semanticdb-table "rfid.js"
+      :major-mode 'js-mode
+      :tags 
+        '( ("run_info" function nil nil [695 720])
+            ("run_poll" function nil nil [723 841])
+            ("run_dump" function nil nil [844 962])
+            ("output_error" function nil nil [965 1082]))          
+      :file "rfid.js"
+      :pointmax 1089
+      :fsize 1088
+      :lastmodtime '(21938 44974 721448 264000)
+      :unmatched-syntax nil))
+  :file "!home!rasmus!Documents!python!PiMRA!static!js!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")

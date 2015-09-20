@@ -1,0 +1,20 @@
+;; Object webbsidor/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "webbsidor/"
+  :tables
+  (list
+    (semanticdb-table "first.htm"
+      :major-mode 'html-mode
+      :tags 
+        '( ("Rasmus Sjöström" section nil nil [61 104])
+            ("Rasmus Sjöström" section (:members 
+              ( ("Rasmus Sjöström" section (:members 
+                  ( ("dold testsida för U1" anchor nil nil [248 251]))                  ) nil [113 325]))              ) nil [104 325]))          
+      :file "first.htm"
+      :pointmax 325
+      :fsize 353
+      :lastmodtime '(21988 33462 117721 270000)
+      :unmatched-syntax nil))
+  :file "!home!rasmus!Documents!webbteknik1!webbsidor!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2")
