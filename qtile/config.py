@@ -4,17 +4,6 @@ from libqtile.command import lazy
 
 import subprocess
 
-def execute(command):
-    return subprocess.Popen(command.split(), shell=True)
-
-def execute_prompt():
-    return 0
-
-@hook.subscribe.startup
-def startup():
-    execute("feh --bg-scale ~/.config/qtile/wallpapers/arch.png")
-    execute("xmodmap ~/.Xmodmap")
-
 # Default widget settings
 widget_cfg = dict(
     font = 'Consolas',
@@ -49,17 +38,14 @@ keys = [
 
     # Start a new process in current workspace
     Key([sup], "r", lazy.spawncmd()),
-
-    # Execute Once
-    Key([sup], "c", execute_prompt()),
     ]
 
 # Workspaces
 groups = [
-    Group(name='h', spawn='xterm', layout='max'),
-    Group(name='t', spawn='terminator', layout='max'),
-    Group(name='n', spawn='', layout='max'),
-    Group(name='s', spawn='', layout='max'),
+    Group(name='h'),
+    Group(name='t', spawn='emacs', layout='max'),
+    Group(name='n', spawn='xterm', layout='max'),
+    Group(name='s'),
     Group('8'),
     Group('9'),
     Group('0')
@@ -81,3 +67,9 @@ layouts = [
 ]
 
 main = None
+
+# Hooks
+
+@hook.subscribe.startup
+def startup():
+    subprocess.Popen("feh --bg-scale ~/.config/qtile/wallpapers/arch.jpg", shell=True)
