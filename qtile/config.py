@@ -17,6 +17,9 @@ bar_widgets = [
     widget.Prompt(**widget_cfg),
 
     widget.sep.Sep(foreground='7b5830'),
+    widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
+    
+    widget.sep.Sep(foreground='7b5830'),
     widget.Battery(**widget_cfg),
 ]
 
@@ -29,27 +32,37 @@ screens = [
 
 # Mod-variables
 sup = "mod4" # Super key
-alt = "mod1"
+
 # Key shortcuts
 keys = [
     
     # Logout
-    Key([sup, alt],  "r", lazy.restart()),
+    Key([sup, "control"],  "r", lazy.restart()),
 
     # Start a new process in current workspace
     Key([sup], "r", lazy.spawncmd()),
-    ]
+]
 
 # Workspaces
 groups = [
-    Group(name='h'),
-    Group(name='t', spawn='emacs', layout='max'),
-    Group(name='n', spawn='xterm', layout='max'),
-    Group(name='s'),
+    Group(name='h',
+          layout='max'
+    ),
+    Group(name='t',
+          spawn='emacs',
+          layout='max'
+    ),
+    Group(name='n',
+          spawn='xterm -e terminator',
+          layout='max'
+    ),
+    Group(name='s',
+          layout='max'
+    ),
     Group('8'),
     Group('9'),
     Group('0')
-    ]
+]
 
 # Set key shortcuts for workspace navigation
 for i in groups:
@@ -62,7 +75,6 @@ border = dict(border_width=1)
 layouts = [
     layout.Stack(stacks=2, **border),
     layout.MonadTall(**border), 
-    # layout.Stack(stacks=2, border_width=1),
     layout.Max(),
 ]
 
