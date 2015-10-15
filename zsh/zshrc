@@ -16,7 +16,7 @@ COMPLETION_WAITING_DOTS="true"
 
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-plugins=(gitfast compleat common-aliases sudo web-search systemd django z catimg custom-aliases)
+plugins=(gitfast compleat common-aliases web-search systemd django z catimg custom-aliases)
 
 
 # User configuration
