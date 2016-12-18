@@ -6,6 +6,7 @@
 (blink-cursor-mode 0)
 (setq tab-width 2)
 (display-battery-mode t)
+(ido-mode t)
 
 ;; Set theme
 (add-to-list 'custom-theme-load-path

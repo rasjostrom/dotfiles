@@ -16,7 +16,8 @@
     flycheck py-autopep8 material-theme
     ace-jump-mode helm pdf-tools
     web-mode multiple-cursors
-    markdown-preview-mode rainbow-delimiters))
+    markdown-preview-mode rainbow-delimiters
+    alect-themes))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
