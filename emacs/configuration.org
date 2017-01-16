@@ -1,0 +1,113 @@
+* General/Global Settings
+** Misc
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-startup-message t
+      column-number-mode t
+      tab-width 2)
+
+(setq-default cursor-type 'bar)
+(blink-cursor-mode 0)
+(display-battery-mode t)
+(ido-mode t)
+(set-face-attribute 'default nil :height 90)
+(global-hl-line-mode) ;;; Hilight line where the cursor is
+(global-auto-revert-mode t) ;;; Auto-refresh buffer if file changes on disk
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(setq user-full-name "Rasmus Sjostrom"
+      user-mail-address "ras.sjostrom@gmail.com")
+#+END_SRC
+
+** Set theme
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'custom-theme-load-path
+             (file-name-as-directory "~/.emacs.d/themes"))
+(load-theme 'alect-black t)
+#+END_SRC
+
+** Enable tab autocomplete for elisp
+#+BEGIN_SRC emacs-lisp
+(setq tab-always-indent 'complete)
+(add-to-list 'completion-styles 'initials t)
+#+END_SRC
+
+** Rainbow delimiters for most programming modes
+#+BEGIN_SRC emacs-lisp
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+#+END_SRC
+
+** Mode tweaks & bindings
+*** Swap CTRL-X with CTRL-U
+ #+BEGIN_SRC emacs-lisp
+ (define-key key-translation-map [?\C-x] [?\C-u])
+ (define-key key-translation-map [?\C-u] [?\C-x])
+ #+END_SRC
+
+*** ace-jump-mode
+ #+BEGIN_SRC emacs-lisp
+ (global-set-key (kbd "C-x SPC") #'ace-jump-char-mode)
+ (global-set-key (kbd "C-x C-SPC") #'ace-jump-mode-pop-mark)
+ #+END_SRC
+
+*** flx-isearch
+ #+BEGIN_SRC emacs-lisp
+ (flx-ido-mode 1)
+ (flx-isearch-mode 1)
+ (setq ido-enable-flex-matching t)
+
+ (global-set-key (kbd "C-M-s") #'flx-isearch-forward)
+ (global-set-key (kbd "C-M-r") #'flx-isearch-backward)
+ #+END_SRC
+
+*** helm-mode
+#+BEGIN_SRC emacs-lisp
+ (helm-mode 1)
+ (global-set-key (kbd "M-x") #'helm-M-x)
+ (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+ #+END_SRC
+
+* Web
+#+BEGIN_SRC emacs-lisp
+(require 'web-mode)
+
+;; Use web-mode for html, css, javascript
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+
+;; Set indentation to 2 for html, css, javascript
+(add-hook 'web-mode-hook
+          (lambda ()
+            (setq web-mode-markup-indent-offset 2)
+            (setq web-mode-css-indent-offset 2)
+            (setq web-mode-code-indent-offset 2)))
+#+END_SRC
+
+* Python
+#+BEGIN_SRC emacs-lisp
+(elpy-enable)
+(elpy-use-ipython)
+
+(add-hook 'python-mode-hook
+          (lambda ()
+            (setq indent-tabs-mode t)
+            (setq tab-width 2)
+            (setq python-indent 2)))
+
+;; use flycheck instead of flymake with elpy
+(when (require 'flycheck nil t)
+  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+  (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+;; enable autopep8 formatting on save
+(require 'py-autopep8)
+(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+#+END_SRC
+
+* Org-mode
+#+BEGIN_SRC emacs-lisp
+(setq org-src-fontify-natively t)
+(add-hook 'org-mode-hook (lambda ()
+                           (org-bullets-mode 1)
+                           (orgsnip-mode)))
+#+END_SRC
