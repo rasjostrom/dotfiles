@@ -3,7 +3,8 @@
 #+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-message t
       column-number-mode t
-      tab-width 2)
+      tab-width 2
+      gc-cons-threshold 20000000)
 
 (setq-default cursor-type 'bar)
 (blink-cursor-mode 0)
