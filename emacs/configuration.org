@@ -104,7 +104,7 @@
             (setq web-mode-code-indent-offset 2)))
 #+END_SRC
 
-* Pythone
+* Python
 #+BEGIN_SRC emacs-lisp
 (elpy-enable)
 (elpy-use-ipython)
