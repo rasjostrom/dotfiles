@@ -15,11 +15,13 @@
 (defvar package-list
   '(better-defaults ein elpy
     flycheck py-autopep8 web-mode
+    company-go company-shell company-web
     ace-jump-mode helm multiple-cursors
     pdf-tools markdown-preview-mode
     rainbow-delimiters alect-themes
     flx flx-ido flx-isearch
-    persistent-scratch org-bullets))
+    persistent-scratch org-bullets
+    go-mode rjsx-mode react-snippets))
 
 (mapc #'(lambda (package)
     (unless (package-installed-p package)
@@ -35,7 +37,7 @@
       '("misc" "nm"))
 
 ;; Mode tweaks, key bindings and general settings are written in
-;; literal programming using org-mode.
+;; literate programming using org-mode.
 (org-babel-load-file
  (expand-file-name
   "configuration.org" user-emacs-directory))
