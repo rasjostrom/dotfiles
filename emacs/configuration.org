@@ -1,164 +1,588 @@
-
-* General/Global Settings
+* Global
 ** Misc
-#+BEGIN_SRC emacs-lisp
-(setq inhibit-startup-message t
-      column-number-mode t
-      tab-width 2
-      gc-cons-threshold 20000000)
+   #+BEGIN_SRC emacs-lisp
+     (setq inhibit-startup-message t
+	   column-number-mode t
+	   tab-width 2
+	   gc-cons-threshold 20000000)
 
-;; Save to a specific backup location
-(setq backup-directory-alist `(("." . "~/.emacs.d/backup")))
-(setq backup-by-copying t)
+     ;; Save to a specific backup location
+     (setq backup-directory-alist `(("." . "~/.emacs.d/backup")))
+     (setq backup-by-copying t)
 
-(setq-default cursor-type 'bar)
-(setq-default fill-column 90)
+     (toggle-scroll-bar 0)
+     (menu-bar-mode 0)
+     (tool-bar-mode 0)
 
-(blink-cursor-mode 0)
-(display-battery-mode t)
-(ido-mode t)
-(set-face-attribute 'default nil :height 90)
-(global-hl-line-mode) ;;; Hilight line where the cursor is
-(global-auto-revert-mode t) ;;; Auto-refresh buffer if file changes on disk
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+     (display-battery-mode 0)
+     (display-time-mode 1)
 
+     (ido-mode t)
+     (setq ido-auto-merge-work-directories-length -1)
 
-(setq user-full-name "Rasmus Sjostrom"
-      user-mail-address "ras.sjostrom@gmail.com")
+     (show-paren-mode t)
 
-(setq browse-url-browser-function 'browse-url-chromium)
-#+END_SRC
+     (setq-default cursor-type 'bar)
+     (blink-cursor-mode 0)
 
-** Set theme
-#+BEGIN_SRC emacs-lisp
-(add-to-list 'custom-theme-load-path
-             (file-name-as-directory "~/.emacs.d/themes"))
-(load-theme 'alect-black t)
-#+END_SRC
+     (setq-default fill-column 75)
+     (set-face-attribute 'default nil :height 100)
+     (global-hl-line-mode) ;; Hilight line where the cursor is
+     (global-auto-revert-mode t) ;; Auto-refresh buffer if file changes on disk
+     (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-** Enable tab autocomplete for elisp
-#+BEGIN_SRC emacs-lisp
-(setq tab-always-indent 'complete)
-(add-to-list 'completion-styles 'initials t)
-#+END_SRC
+     (setq user-full-name "Rasmus Sjostrom"
+	user-mail-address "ras.sjostrom@gmail.com")
+
+     (setq browse-url-browser-function 'browse-url-firefox)
+   #+END_SRC
+
+** Theme
+   #+BEGIN_SRC emacs-lisp
+     (require 'doom-themes)
+     (load-theme 'doom-vibrant t)
+     (spaceline-all-the-icons-theme)
+   #+END_SRC
+
+** Elisp AutoComplete
+   #+BEGIN_SRC emacs-lisp
+   ;;(setq tab-always-indent 'complete)
+     (setq indent-tabs-mode nil)
+     (add-to-list 'completion-styles 'initials t)
+
+     (use-package macrostep
+		  :ensure t
+		  :pin melpa
+		  :bind ("C-c e m" . macrostep-expand))
+
+     (use-package paredit
+		  :ensure t
+		  :pin melpa)
+
+     (defun generate-elisp-scratch-buffer ()
+       (interactive)
+       (with-current-buffer
+	   (switch-to-buffer
+	    (get-buffer-create "elisp-buffer"))
+	 (funcall 'emacs-lisp-mode)))
+
+     (defun switch-to-message-buffer ()
+       (interactive)
+       (with-current-buffer
+	   (switch-to-buffer
+	    (get-buffer "*Messages*")
+	    (goto-char (point-max)))))
+
+     (add-hook 'emacs-lisp-mode-hook
+	       (lambda ()
+		 (local-set-key (kbd "C-c e f") 'eval-defun)
+		 (local-set-key (kbd "C-c e b") 'eval-buffer)
+		 (local-set-key (kbd "C-c e d") 'edebug-all-defs)
+		 (local-set-key (kbd "C-c e s") 'generate-elisp-scratch-buffer)
+		 (local-set-key (kbd "C-c e m") 'switch-to-message-buffer)
+		 (local-set-key (kbd "C-c e l") 'find-library)
+		 (local-set-key (kbd "C-c e t") 'ert-run-tests-interactively)
+		 (paredit-mode)
+		 (local-set-key (kbd "C-<right>") 'paredit-forward-slurp-sexp)
+		 (local-set-key (kbd "C-<left>") 'paredit-forward-barf-sexp)
+		 (local-set-key (kbd "C-k") 'paredit-kill)
+
+		 (setq prettify-symbols-alist
+		       '(
+			 ("lambda" . 955) ; λ
+			 ("->" . 8594)    ; →
+			 ("=>" . 8658)    ; ⇒
+			 ("map" . 8614)   ; ↦
+			 ))
+
+		 ;; (setq prettify-symbols-unprettify-at-point 'right-edge)
+		 (global-prettify-symbols-mode 1)
+		 (setq company-minimum-prefix-length 2)
+		 (add-hook 'after-save-hook 'check-parens nil t)))
+   #+END_SRC
+
+   #+RESULTS:
+   | lambda | nil | (local-set-key (kbd C-c e f) (quote eval-defun)) | (local-set-key (kbd C-c e b) (quote eval-buffer)) | (local-set-key (kbd C-c e d) (quote edebug-all-defs)) | (local-set-key (kbd C-c e s) (quote generate-elisp-scratch-buffer)) | (local-set-key (kbd C-c e m) (quote switch-to-message-buffer)) | (local-set-key (kbd C-c e l) (quote find-library)) | (local-set-key (kbd C-c e t) (quote ert-run-tests-interactively)) | (paredit-mode) | (local-set-key (kbd C-<right>) (quote paredit-forward-slurp-sexp)) | (local-set-key (kbd C-<left>) (quote paredit-forward-barf-sexp)) | (local-set-key (kbd C-k) (quote paredit-kill)) | (setq prettify-symbols-alist (quote ((lambda . 955) (-> . 8594) (=> . 8658) (map . 8614)))) | (global-prettify-symbols-mode 1) | (setq company-minimum-prefix-length 2) | (add-hook (quote after-save-hook) (quote check-parens) nil t) |
 
 ** Rainbow delimiters for most programming modes
-#+BEGIN_SRC emacs-lisp
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+   #+END_SRC
 
 ** Mode tweaks & bindings
-*** Swap CTRL-X with CTRL-U
-#+BEGIN_SRC emacs-lisp
-(define-key key-translation-map [?\C-x] [?\C-u])
-(define-key key-translation-map [?\C-u] [?\C-x])
-#+END_SRC
+*** Key Translations
+    #+BEGIN_SRC emacs-lisp
+      (define-key key-translation-map [?\C-x] [?\C-u])
+      (define-key key-translation-map [?\C-u] [?\C-x])
+      (define-key key-translation-map [?\C-h] [?\C-?])
+    #+END_SRC
 
-*** ace-jump-mode
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-x SPC") #'ace-jump-char-mode)
-(global-set-key (kbd "C-x C-SPC") #'ace-jump-mode-pop-mark)
-#+END_SRC
+*** Which Key
+    #+BEGIN_SRC emacs-lisp
+    (which-key-mode t)
+    #+END_SRC
 
-*** flx-isearch
-#+BEGIN_SRC emacs-lisp
-(flx-ido-mode 1)
-(flx-isearch-mode 1)
-(setq ido-enable-flex-matching t)
+*** god-mode
+   #+BEGIN_SRC emacs-lisp
+     (require 'god-mode)
+     (add-hook 'after-init-hook 'which-key-enable-god-mode-support)
 
-(global-set-key (kbd "C-M-s") #'flx-isearch-forward)
-(global-set-key (kbd "C-M-r") #'flx-isearch-backward)
-#+END_SRC
+     (defun rsj/update-cursor ()
+       (setq cursor-type (if god-local-mode 'box 'bar)))
+
+     (global-set-key (kbd "<escape>") 'god-local-mode)
+     (define-key god-local-mode-map (kbd ".") 'repeat)
+     (define-key god-local-mode-map (kbd "i") 'god-local-mode)
+
+     (add-hook 'god-mode-enabled-hook 'rsj/update-cursor)
+     (add-hook 'god-mode-disabled-hook 'rsj/update-cursor)
+    #+END_SRC
+
+*** magit
+    #+BEGIN_SRC emacs-lisp
+      (global-set-key (kbd "C-x g") 'magit-status)
+      (global-set-key (kbd "C-x M-g") 'magit-dispatch-popup)
+    #+END_SRC
+
+*** ace-isearch
+    #+BEGIN_SRC emacs-lisp
+      (global-ace-isearch-mode t)
+      (custom-set-variables
+       '(ace-isearch-input-length 3)
+       '(ace-isearch-jump-delay 0.25)
+       '(ace-isearch-function 'avy-goto-word-1))
+    #+END_SRC
+
+*** Golden Ratio                                                   :inactive:
+    #+BEGIN_SRC emacs-lisp
+    ;(golden-ratio-mode)
+    ;(setq golden-ratio-auto-scale t)
+    ;(setq golden-ratio-adjust-factor 0.8
+    ;      golden-ratio-wide-adjust-factor 0.8)
+    ;(add-to-list 'golden-ratio-extra-commands 'ace-window)
+    #+END_SRC
 
 *** helm-mode
-#+BEGIN_SRC emacs-lisp
-(helm-mode 1)
-(global-set-key (kbd "M-x") #'helm-M-x)
-(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-#+END_SRC
+    #+BEGIN_SRC emacs-lisp
+      (helm-mode 1)
+      (global-set-key (kbd "M-x") #'helm-M-x)
+      (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+    #+END_SRC
+*** avy
+    #+BEGIN_SRC emacs-lisp
+      (global-set-key (kbd "M-g M-g") 'avy-goto-line)
+      (global-set-key (kbd "M-g c") 'avy-goto-char-2)
+
+      (global-set-key (kbd "M-g y") 'avy-copy-line)
+      (global-set-key (kbd "M-g M-y") 'avy-move-line)
+
+      (global-set-key (kbd "M-g r") 'avy-copy-region)
+      (global-set-key (kbd "M-g M-r") 'avy-move-region)
+
+      (global-set-key (kbd "M-g k") 'avy-kill-save-ring-whole-line)
+      (global-set-key (kbd "M-g M-k") 'avy-kill-whole-line)
+
+      (global-set-key (kbd "M-g w") 'avy-kill-ring-save-region)
+      (global-set-key (kbd "M-g M-w") 'avy-kill-region)
+    #+END_SRC
 
 *** yasnippet
-#+BEGIN_SRC emacs-lisp
-(yas-global-mode 1)
-#+END_SRC
+    #+BEGIN_SRC emacs-lisp
+      (setq yas-snippet-dirs '("~/.emacs.d/snippets/"))
+      (yas-global-mode 1)
+    #+END_SRC
 
 *** company-mode
-#+BEGIN_SRC emacs-lisp
-(add-hook 'after-init-hook 'global-company-mode)
-#+END_SRC
+    #+BEGIN_SRC emacs-lisp
+    (add-hook 'after-init-hook 'global-company-mode)
+    #+END_SRC
+
+*** Projectile
+   #+BEGIN_SRC emacs-lisp
+     (projectile-global-mode)
+     (setq projectile-completion-system 'helm)
+     (helm-projectile-on)
+
+     (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+   #+END_SRC
+
+*** Elfeed
+   #+BEGIN_SRC emacs-lisp
+     (require 'elfeed-org)
+     (require 'elfeed-goodies)
+
+     (elfeed-goodies/setup)
+     (elfeed-org)
+
+     (setq rmh-elfeed-org-files (list "~/.emacs.d/elfeed.org"))
+     (setq elfeed-feeds
+	   '("http://nullprogram.com/feed/"
+	     "http://planet.emacsen.org/atom.xml"))
+   #+END_SRC
+
+*** Eyebrowse
+   #+BEGIN_SRC emacs-lisp
+     (eyebrowse-mode t)
+   #+END_SRC
+
+*** Multiple Cursors
+   #+BEGIN_SRC emacs-lisp
+     (require 'multiple-cursors)
+     (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+     (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+     (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+     (global-set-key (kbd "C-c C-,") 'ace-mc-add-multiple-cursors)
+   #+END_SRC
+
+*** Ispell
+    #+BEGIN_SRC emacs-lisp
+      (define-key ctl-x-map "\C-i"
+	#'endless/ispell-word-then-abbrev)
+
+      (defun endless/simple-get-word ()
+	(car-safe (save-excursion (ispell-get-word nil))))
+
+      (defun endless/ispell-word-then-abbrev (p)
+	"Call `ispell-word', then create an abbrev for it.
+      With prefix P, create local abbrev. Otherwise it will
+      be global.
+      If there's nothing wrong with the word at point, keep
+      looking for a typo until the beginning of buffer. You can
+      skip typos you don't want to fix with `SPC', and you can
+      abort completely with `C-g'."
+	(interactive "P")
+	(let (bef aft)
+	  (save-excursion
+	    (while (if (setq bef (endless/simple-get-word))
+		       ;; Word was corrected or used quit.
+		       (if (ispell-word nil 'quiet)
+			   nil ; End the loop.
+			 ;; Also end if we reach `bob'.
+			 (not (bobp)))
+		     ;; If there's no word at point, keep looking
+		     ;; until `bob'.
+		     (not (bobp)))
+	      (backward-word)
+	      (backward-char))
+	    (setq aft (endless/simple-get-word)))
+	  (if (and aft bef (not (equal aft bef)))
+	      (let ((aft (downcase aft))
+		    (bef (downcase bef)))
+		(define-abbrev
+		  (if p local-abbrev-table global-abbrev-table)
+		  bef aft)
+		(message "\"%s\" now expands to \"%s\" %sally"
+			 bef aft (if p "loc" "glob")))
+	    (user-error "No typo at or before point"))))
+
+      (setq save-abbrevs 'silently)
+      (setq-default abbrev-mode t)
+    #+END_SRC
+
+** TRAMP
+   #+BEGIN_SRC emacs-lisp
+   (setq tramp-default-method "ssh")
+   (defalias 'exit-tramp 'tramp-cleanup-all-buffers)
+   ;(define-key global-map (kbd "C-c s") 'helm-tramp)
+   #+END_SRC
+
+** Windows
+*** Centerworks
+**** TODO Utilize Projectile & eyebrowse
+**** Requirements
+     - window-layout
+     - ace-window
+
+**** Ace Window
+     #+BEGIN_SRC emacs-lisp
+       (ace-window-display-mode)
+       (global-set-key (kbd "C-x o") 'ace-window)
+       (setq aw-keys '(?h ?t ?n ?s ?a ?o ?e ?u ?i))
+       (setq aw-swap-invert t)
+       (define-key global-map (kbd "C-c o") 'ace-swap-window)
+     #+END_SRC
+
+**** Window Layout
+     #+BEGIN_SRC emacs-lisp
+
+     #+END_SRC
 
 * Web
-#+BEGIN_SRC emacs-lisp
-(require 'web-mode)
+  #+BEGIN_SRC emacs-lisp
+    ;; Use web-mode for html, css, javascript
+    (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+    (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
 
-;; Use web-mode for html, css, javascript
-(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.css\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.js\\'" . web-mode))
+    (add-hook 'web-mode-hook
+	      (lambda ()
+		(require 'web-mode)
+		(setq web-mode-markup-indent-offset 4)
+        (setq indent-tabs-mode nil)
+		(setq web-mode-css-indent-offset 2)
+		(setq web-mode-code-indent-offset 4)))
+  #+END_SRC
 
-;; Set indentation to 2 for html, css, javascript
-(add-hook 'web-mode-hook
-          (lambda ()
-            (setq web-mode-markup-indent-offset 2)
-            (setq web-mode-css-indent-offset 2)
-            (setq web-mode-code-indent-offset 2)))
-#+END_SRC
+  #+RESULTS:
+  | lambda | nil | (require (quote web-mode)) | (setq web-mode-markup-indent-offset 4) | (setq indent-tabs-mode nil) | (setq web-mode-css-indent-offset 2) | (setq web-mode-code-indent-offset 4) |
 
 * Python
-#+BEGIN_SRC emacs-lisp
-(elpy-enable)
-(elpy-use-ipython)
+  #+BEGIN_SRC emacs-lisp
+    (setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "-i --simple-prompt")
+    (elpy-enable)
+    (add-hook 'python-mode-hook
+	      (lambda ()
+		(setq indent-tabs-mode nil)
+		(setq tab-width 4)
+		(setq python-indent 4)))
 
-(add-hook 'python-mode-hook
-          (lambda ()
-            (setq indent-tabs-mode t)
-            (setq tab-width 2)
-            (setq python-indent 2)))
+    ;; use flycheck instead of flymake with elpy
+    (when (require 'flycheck nil t)
+      (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+      (add-hook 'elpy-mode-hook 'flycheck-mode))
 
-;; use flycheck instead of flymake with elpy
-(when (require 'flycheck nil t)
-  (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
-  (add-hook 'elpy-mode-hook 'flycheck-mode))
+    ;; enable autopep8 formatting on save
+    (require 'py-autopep8)
+    (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+  #+END_SRC
 
-;; enable autopep8 formatting on save
-(require 'py-autopep8)
-(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
-#+END_SRC
+  #+RESULTS:
+  | py-autopep8-enable-on-save | flycheck-mode |
+
+* Java
+  #+BEGIN_SRC emacs-lisp
+    ;; (add-hook 'java-mode-hook
+    ;; 	  (lambda ()
+    ;; 	  (require 'meghanada)
+    ;; 	  (meghanada-mode t)
+    ;; 	  (igradle-mode t)
+    ;; 	(global-set-key (kbd "C-c C-g m") 'gradle-menu/body)
+    ;; 	  (setq c-basic-offset 2)
+    ;; 	  (subword-mode t)
+    ;; 	  (add-hook 'before-save-hook 'meghanada-code-beautify-before-save)))
+  #+END_SRC
+
+* LSP
+   #+BEGIN_SRC emacs-lisp
+    (add-to-list 'load-path "~/.emacs.d/lisp/lsp-mode/")
+    (add-to-list 'load-path "~/.emacs.d/lisp/lsp-php/")
+    (add-to-list 'load-path "~/.emacs.d/lisp/lsp-ui/")
+
+    (require 'lsp-mode)
+
+    (require 'lsp-ui)
+    ;;(add-hook 'lsp-mode-hook 'lsp-ui-mode)
+
+    (require 'lsp-php)
+    ;;(add-hook 'php-mode-hook #'lsp-php-enable)
+   #+END_SRC
+
+   #+RESULTS:
+   : lsp-php
 
 * Org-mode
-#+BEGIN_SRC emacs-lisp
-  (setq org-agenda-files '("~/doc/org/agenda.org"))
+** Misc
+  #+BEGIN_SRC emacs-lisp
+	(setq org-agenda-files '("~/doc/org/"))
 
-  (defun org-custom-keys ()
-    "Use n/p instead of arrow keys for moving items since they are unbinded."
-    (local-set-key (kbd "M-n") #'org-metadown)
-    (local-set-key (kbd "M-p") #'org-metaup)
-    (local-set-key (kbd "C-c a") #'org-agenda)
-    (local-set-key (kbd "C-c c") #'org-capture)
-    (local-set-key (kbd "C-. f ") #'fill-region))
+	(defun org-custom-keys ()
+	  (local-set-key (kbd "M-n") #'org-metadown)
+	  (local-set-key (kbd "M-p") #'org-metaup)
+	  (local-set-key (kbd "C-c a") #'org-agenda)
+	  (local-set-key (kbd "C-c c") #'org-capture))
 
-  (setq org-todo-keywords
-        '(("sequence #+SEQ_TODO: TODO(t) IN-PROGRESS(i) WAITING(w) | DONE(d) CANCELLED(c)")))
-  (setq org-src-window-setup 'current-window)
+	(setq org-agenda-dim-blocked-tasks nil)
+	(setq org-enforce-todo-dependencies t)
 
-  (add-hook 'org-mode-hook (lambda ()
-                             (org-bullets-mode 1)
-                             (auto-fill-mode 1)
-                             (setq org-src-fontify-natively t)
-                             (org-custom-keys)))
-  (setq org-ellipsis " ⤵")
+	(setq org-capture-templates
+	      '(("d" "Daily Task " entry (file+datetree "~/doc/org/sigma-daily.org")
+		 "* TODO %?\nSCHEDULED: %^T\n  %i"
+		 :unnarrowed t :empty-lines 1)
 
-  (org-babel-do-load-languages
-    'org-babel-load-languages
-    '((emacs-lisp . t)
-      (sh . t)))
+		("s" "Super Task Sigma" entry (file+headline "~/doc/org/sigma-todo.org" "Tasks")
+		 "* TODO %?\n  %i")
 
-(setq org-confirm-babel-evaluate nil)
-#+END_SRC
+		("i" "Idea" entry (file+headline "~/doc/org/main.org" "Ideas")
+		 "** %?\n%i\n\tEntered on %U\n")))
 
-* Kbd Macros
-Copies the current line, yanks it into the next frame and jumps back.
-#+BEGIN_SRC emacs-lisp
-(fset 'send-to-next-frame
-   [?\C-a ?\C-  ?\C-e ?\M-w ?\C-u ?o ?\C-y return ?\C-u ?o ?\C-a])
-#+END_SRC
+
+	(add-hook 'org-mode-hook (lambda ()
+				   (flyspell-mode 1)
+				   (org-bullets-mode 1)
+				   (auto-fill-mode 1)
+				   (setq org-src-fontify-natively t)
+				   (require 'org-depend)
+				   (org-custom-keys)))
+
+	(setq org-ellipsis " ⤵")
+
+	(org-babel-do-load-languages
+	 'org-babel-load-languages
+	 '((emacs-lisp . t)
+	   (shell . t)
+	   (java . t)))
+
+
+	(setq org-confirm-babel-evaluate nil)
+	(setq org-export-latex-listings 1)
+
+	(setq org-latex-pdf-process
+	  '("xelatex -interaction nonstopmode %f"
+	    "xelatex -interaction nonstopmode %f"))
+
+	(require 'org-mru-clock)
+  #+END_SRC
+
+** org-jira
+   #+BEGIN_SRC emacs-lisp
+   (setq jiralib-url "https://case.sigma.se")
+   (defun rsj/org-jira-cycle()
+     (interactive)
+     (progn
+       (org-jira-progress-issue-next)
+       (org-todo 'right))) ;; Need to move point to the right place before calling this
+
+   (defun my-advice ()
+   (message "ox"))
+
+   (advice-add 'org-jira-progress-issue-next :after #'my-advice)
+
+   ;;(define-key rsj/god-org-map (kbd "C-n") 'rsj/org-jira-cycle)
+   #+END_SRC
+
+* Outline-mode
+  #+BEGIN_SRC emacs-lisp
+    (add-hook 'outline-minor-mode-hook 'outshine-hook-function)
+    (add-hook 'prog-mode-hook 'outline-minor-mode)
+
+    (defun -add-font-lock-kwds (FONT-LOCK-ALIST)
+      (font-lock-add-keywords
+       nil (--map (-let (((rgx uni-point) it))
+		    `(,rgx (0 (progn
+				(compose-region (match-beginning 1) (match-end 1)
+						,(concat "\t" (list uni-point)))
+				nil))))
+		  FONT-LOCK-ALIST)))
+
+    (defmacro add-font-locks (FONT-LOCK-HOOKS-ALIST)
+      `(--each ,FONT-LOCK-HOOKS-ALIST
+	 (-let (((font-locks . mode-hooks) it))
+	   (--each mode-hooks
+	     (add-hook it (-partial '-add-font-lock-kwds
+				    (symbol-value font-locks)))))))
+
+    (defconst emacs-outlines-font-lock-alist
+      ;; Outlines
+      '(("\\(^;;;\\) "          ?■)
+	("\\(^;;;;\\) "         ?○)
+	("\\(^;;;;;\\) "        ?✸)
+	("\\(^;;;;;;\\) "       ?✿)))
+
+    (defconst lisp-outlines-font-lock-alist
+      ;; Outlines
+      '(("\\(^;; \\*\\) "          ?■)
+	("\\(^;; \\*\\*\\) "       ?○)
+	("\\(^;; \\*\\*\\*\\) "    ?✸)
+	("\\(^;; \\*\\*\\*\\*\\) " ?✿)))
+  #+END_SRC
+
+* rsj
+  Personal helper snippets & bindings.
+  #+BEGIN_SRC emacs-lisp
+    (require 'rsj-org)
+  #+END_SRC
+*** rsj/god-avy
+   #+BEGIN_SRC emacs-lisp
+     (global-unset-key (kbd "C-q"))
+     (local-unset-key (kbd "C-q"))
+     (define-key global-map (kbd "C-q") nil)
+
+     (define-prefix-command 'rsj/god-avy-map)
+     (define-key global-map (kbd "C-q") 'rsj/god-avy-map)
+
+     (define-key rsj/god-avy-map (kbd "C-c") 'avy-goto-char-2)
+     (define-key rsj/god-avy-map (kbd "C-l") 'avy-goto-line)
+
+     (define-key rsj/god-avy-map (kbd "y") 'avy-copy-line)
+     (define-key rsj/god-avy-map (kbd "C-y") 'avy-move-line)
+
+     (define-key rsj/god-avy-map (kbd "r") 'avy-copy-region)
+     (define-key rsj/god-avy-map (kbd "C-r") 'avy-move-region)
+
+     (define-key rsj/god-avy-map (kbd "k") 'avy-kill-save-ring-whole-line)
+     (define-key rsj/god-avy-map (kbd "C-k") 'avy-kill-whole-line)
+
+     (define-key rsj/god-avy-map (kbd "w") 'avy-kill-ring-save-region)
+     (define-key rsj/god-avy-map (kbd "C-w") 'avy-kill-region)
+   #+END_SRC
+
+*** rsj/god-org
+    #+BEGIN_SRC emacs-lisp
+      (global-unset-key (kbd "C-'"))
+      (local-unset-key (kbd "C-'"))
+      (define-key global-map (kbd "C-'") nil)
+
+      (define-prefix-command 'rsj/god-org-map)
+      (define-key org-mode-map (kbd "C-'") 'rsj/god-org-map)
+
+      (define-key rsj/god-org-map (kbd "C-t") 'org-insert-todo-heading)
+      (define-key rsj/god-org-map (kbd "t") 'org-insert-todo-subheading)
+
+      (define-key rsj/god-org-map (kbd "C-s") 'org-insert-heading-respect-content)
+      (define-key rsj/god-org-map (kbd "s") 'org-insert-subheading)
+
+      ;; FIXME: Write an avy for this
+      (define-key rsj/god-org-map (kbd "C-l") 'org-store-link)
+      (define-key rsj/god-org-map (kbd "l")
+	(lambda () (interactive)
+	  (insert "See: ")
+	  (org-insert-last-stored-link 1)))
+
+      (define-key rsj/god-org-map (kbd "C-c i") #'org-mru-clock-in)
+      (define-key rsj/god-org-map (kbd "C-c o") #'org-clock-out)
+   #+END_SRC
+
+*** rsj/org
+    #+BEGIN_SRC emacs-lisp
+      (define-key global-map (kbd "C-c s") 'rsj/org-schedule-with-alert)
+    #+END_SRC
+**** Style Tags
+    #+BEGIN_SRC emacs-lisp
+      ;; FIXME Create a macro for this. Alternatively include the actual binding
+	;; in the original macro.
+	  (rsj/make-word-style "*" "bold")
+	  (rsj/avy-make-word-style "*" "bold")
+	  (define-key rsj/god-org-map (kbd "C-b") 'rsj/make-word-bold)
+	  (define-key rsj/god-org-map (kbd "b") 'rsj/avy-make-word-bold)
+
+	  (rsj/make-word-style "~" "verbatim")
+	  (rsj/avy-make-word-style "~" "verbatim")
+	  (define-key rsj/god-org-map (kbd "C-v") 'rsj/make-word-verbatim)
+	  (define-key rsj/god-org-map (kbd "v") 'rsj/avy-make-word-verbatim)
+      #+END_SRC
+
+*** rsj/buffer-switching
+    #+BEGIN_SRC emacs-lisp
+      (defun rsj/switch-buffer ()
+	"Calls ace-jump-buffer with projectile if in a project."
+	(interactive)
+	(if (projectile-project-p)
+	    (ace-jump-projectile-buffers)
+	  (helm-buffers-list)))
+
+      (defun rsj/ibuffer ()
+        "determines whether to call ibuffer with projectile or not. "
+        (interactive)
+        (if (projectile-project-p)
+            (projectile-ibuffer 0)
+          (ibuffer)))
+
+      (setq ajb-max-window-height 40)
+
+      (global-set-key (kbd "C-x C-b") 'rsj/switch-buffer)
+      (global-set-key (kbd "C-x b") 'helm-buffers-list)
+      (global-set-key (kbd "M-g M-b") 'rsj/ibuffer)
+    #+END_SRC
